@@ -84,6 +84,7 @@ namespace FileDB.Services.TxtFileServices
             }
             else
             {
+                this.loggingBroker.LogInformation("User create.");
                 return this.storageBroker.AddUser(user);
             }
         }

@@ -4,18 +4,19 @@
 
 using FileDB.Models.Users;
 using FileDB.Services.Identities;
+using FileDB.Services.JsonFileService;
 using FileDB.Services.TxtFileServices;
 
 namespace FileDB.Services.UserProcessing
 {
-    internal class JsonProcessingService
+    internal class JsonProcessingService: IUserProcessing
     {
-        private readonly IUserTxtService userService;
+        private readonly IUserJsonService userService;
         private readonly IdentityWithJSONFileService identityService;
 
         public JsonProcessingService()
         {
-            this.userService = new UserTxtService();
+            this.userService = new UserJsonService();
             this.identityService = IdentityWithJSONFileService.GetIdentityService();
         }
 

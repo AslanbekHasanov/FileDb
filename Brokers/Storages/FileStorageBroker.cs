@@ -10,7 +10,7 @@ namespace FileDB.Brokers.Storages
 {
     internal class FileStorageBroker : IStorageBroker
     {
-        private const string FilePath = "../../../Assets/Contacts.txt";
+        private const string FilePath = "../../../Assets/UserDb.txt";
         private bool isUpdateOrDelete;
 
         public FileStorageBroker()
@@ -34,7 +34,7 @@ namespace FileDB.Brokers.Storages
             {
                 if (users[i].Id == user.Id)
                 {
-                    users[i] = user;
+                    users[i].Name = user.Name;
                     isUpdateOrDelete = true;
                     return isUpdateOrDelete;
                 }

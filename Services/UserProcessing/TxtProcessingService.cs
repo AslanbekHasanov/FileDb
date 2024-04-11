@@ -8,7 +8,7 @@ using FileDB.Services.TxtFileServices;
 
 namespace FileDB.Services.UserProcessing
 {
-    internal class TxtProcessingService
+    internal class TxtProcessingService: IUserProcessing
     {
         private readonly IUserTxtService userService;
         private readonly IdentityWithTxtFileService identityService;

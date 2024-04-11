@@ -14,7 +14,7 @@ namespace FileDB.Services.Identities
 
         private IdentityWithJSONFileService()
         {
-            this.storagesBroker = new FileStorageBroker();
+            this.storagesBroker = new JSONStorageBroker();
         }
 
         public static IdentityWithJSONFileService GetIdentityService()
