@@ -2,28 +2,43 @@
 // Tarteeb School (c) All rights reserved
 //----------------------------------------
 
+using FileDB.Brokers.Loggings;
+using FileDB.Brokers.Storages;
+using FileDB.Services.Identities;
 using FileDB.Services.UserProcessing;
+using FileDB.Services.UserService;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        IUserProcessing txtProcessing = new TxtProcessingService();
-        IUserProcessing jsonProcessing = new JsonProcessingService();
-
         SelectDb();
         Console.Write("Enter command: ");
         int command = Convert.ToInt32(Console.ReadLine());
         if (command == 1)
         {
-            PrintMenuForUser(jsonProcessing);
+            ILoggingBroker loggingBroker = new LoggingBroker();
+            IStorageBroker storageBroker = new JSONStorageBroker();
+            IUserService userService = new UserService(storageBroker);
+            IdentityService identitiyService = IdentityService.GetIdentityService(storageBroker);
+
+            UserProcessingService userProcessingService = new UserProcessingService(userService, identitiyService);
+            PrintMenuForUser(userProcessingService);
         }
         else
         {
-            PrintMenuForUser(txtProcessing);
+            ILoggingBroker loggingBroker = new LoggingBroker();
+            IStorageBroker storageBroker = new FileStorageBroker();
+            IUserService userService = new UserService(storageBroker);
+            IdentityService identitiyService = IdentityService.GetIdentityService(storageBroker);
+
+            UserProcessingService userProcessingService = new UserProcessingService(userService, identitiyService);
+            PrintMenuForUser(userProcessingService);
         }
+
+
     }
-    static void PrintMenuForUser(IUserProcessing userProcessing)
+    static void PrintMenuForUser(UserProcessingService userProcessing)
     {
         string userChoice;
         do

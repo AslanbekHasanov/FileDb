@@ -4,19 +4,20 @@
 
 using FileDB.Models.Users;
 using FileDB.Services.Identities;
-using FileDB.Services.TxtFileServices;
+using FileDB.Services.UserService;
 
 namespace FileDB.Services.UserProcessing
 {
-    internal class TxtProcessingService: IUserProcessing
+    internal class UserProcessingService
     {
-        private readonly IUserTxtService userService;
-        private readonly IdentityWithTxtFileService identityService;
+        private readonly IUserService userService;
+        private readonly IdentityService identityService;
 
-        public TxtProcessingService()
+        public UserProcessingService(IUserService userService,
+            IdentityService identityService)
         {
-            this.userService = new UserTxtService();
-            this.identityService = IdentityWithTxtFileService.GetIdentityService();
+            this.userService = userService;
+            this.identityService = identityService;
         }
 
         public void CreateNewUser(string name)
