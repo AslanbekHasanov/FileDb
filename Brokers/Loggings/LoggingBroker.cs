@@ -6,7 +6,7 @@ namespace FileDB.Brokers.Loggings
 {
     internal class LoggingBroker : ILoggingBroker
     {
-        public void LogInforamation(string message)
+        public void LogInformation(string message)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine(message);

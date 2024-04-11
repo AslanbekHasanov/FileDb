@@ -2,13 +2,13 @@
 // Tarteeb School (c) All rights reserved
 //----------------------------------------
 
-using FileDB.Brokers.Storages.FileStorage;
+using FileDB.Brokers.Storages;
 using FileDB.Models.Users;
 using Newtonsoft.Json;
 
-namespace FileDB.Brokers.Storages.JsonStorage
+namespace FileDB.Brokers.Storages
 {
-    internal class JSONStorageBroker : IJSONStorageBroker
+    internal class JSONStorageBroker : IStorageBroker
     {
         private const string FilePath = "../../../Assets/UserDb.json";
         private bool isUpdateOrDelete;

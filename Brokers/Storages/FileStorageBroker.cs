@@ -6,7 +6,7 @@ using FileDB.Models.Users;
 using System.IO;
 using System.Numerics;
 
-namespace FileDB.Brokers.Storages.FileStorage
+namespace FileDB.Brokers.Storages
 {
     internal class FileStorageBroker : IStorageBroker
     {
