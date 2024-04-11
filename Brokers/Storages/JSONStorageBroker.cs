@@ -21,7 +21,8 @@ namespace FileDB.Brokers.Storages
 
         public User AddUser(User user)
         {
-            List<User> users = ReadAllUsers();
+            string userInfo = File.ReadAllText(FilePath);
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(userInfo);
             users.Add(user);
             string jsonConvertUserInfo = JsonConvert.SerializeObject(users);
             File.WriteAllText(FilePath, $"[{jsonConvertUserInfo}]");
@@ -57,11 +58,6 @@ namespace FileDB.Brokers.Storages
         {
             string userInfo = File.ReadAllText(FilePath);
             List<User> users = JsonConvert.DeserializeObject<List<User>>(userInfo);
-
-            foreach (var user in users)
-            {
-                Console.WriteLine($"{user.Id}. {user.Name}");
-            }
 
             return users;
         }
