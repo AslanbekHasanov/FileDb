@@ -4,9 +4,9 @@
 
 using FileDB.Models.Users;
 
-namespace FileDB.Services.JsonFileService
+namespace FileDB.Services.UserService
 {
-    internal interface IUserJsonService
+    internal interface IUserService
     {
         User AddUser(User user);
         void ShowUsers();

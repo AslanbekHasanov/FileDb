@@ -7,21 +7,21 @@ using FileDB.Models.Users;
 
 namespace FileDB.Services.Identities
 {
-    internal class IdentityWithJSONFileService
+    internal class IdentityService
     {
-        private static IdentityWithJSONFileService instance;
+        private static IdentityService instance;
         private readonly IStorageBroker storagesBroker;
 
-        private IdentityWithJSONFileService()
+        private IdentityService(IStorageBroker storageBroker)
         {
-            this.storagesBroker = new JSONStorageBroker();
+            this.storagesBroker = storageBroker;
         }
 
-        public static IdentityWithJSONFileService GetIdentityService()
+        public static IdentityService GetIdentityService(IStorageBroker storagesBroker)
         {
             if (instance == null)
             {
-                instance = new IdentityWithJSONFileService();
+                instance = new IdentityService(storagesBroker);
             }
             return instance;
         }

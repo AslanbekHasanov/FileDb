@@ -6,16 +6,16 @@ using FileDB.Brokers.Loggings;
 using FileDB.Brokers.Storages;
 using FileDB.Models.Users;
 
-namespace FileDB.Services.JsonFileService
+namespace FileDB.Services.UserService
 {
-    internal class UserJsonService : IUserJsonService
+    internal class UserService : IUserService
     {
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
 
-        public UserJsonService()
+        public UserService(IStorageBroker storageBroker)
         {
-            this.storageBroker = new JSONStorageBroker();
+            this.storageBroker = storageBroker;
             this.loggingBroker = new LoggingBroker();
         }
 
