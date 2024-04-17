@@ -10,7 +10,7 @@ namespace FileDB.Brokers.Storages
 {
     internal class JSONStorageBroker : IStorageBroker
     {
-        private const string FilePath = "../../../Assets/UserDb.json";
+        private const string FilePath = "../../../Assets/Jsons/UserDb.json";
         private bool isUpdateOrDelete;
 
         public JSONStorageBroker()
@@ -23,11 +23,16 @@ namespace FileDB.Brokers.Storages
         {
             string userInfo = File.ReadAllText(FilePath);
             List<User> users = JsonConvert.DeserializeObject<List<User>>(userInfo);
-            users.Add(user);
-            string jsonConvertUserInfo = JsonConvert.SerializeObject(users);
-            File.WriteAllText(FilePath, $"[{jsonConvertUserInfo}]");
+            User userExsist = users.FirstOrDefault(u => u.Id == user.Id);
 
-            return user;
+            if (userExsist is null)
+            {
+                string jsonConvertUserInfo = JsonConvert.SerializeObject(users);
+                File.WriteAllText(FilePath, $"{jsonConvertUserInfo}");
+                return user;
+            }
+
+            return new User();
         }
 
         public bool DeleteUser(int id)
@@ -48,8 +53,12 @@ namespace FileDB.Brokers.Storages
                 }
             }
 
-            string jsonConvertUsersInfo = JsonConvert.SerializeObject(userDeletedNextInfo);
-            File.WriteAllText(FilePath, $"[{jsonConvertUsersInfo}]");
+            if (isUpdateOrDelete is true)
+            {
+                string jsonConvertUsersInfo = JsonConvert.SerializeObject(userDeletedNextInfo);
+                File.WriteAllText(FilePath, $"{jsonConvertUsersInfo}");
+                return isUpdateOrDelete;
+            }
 
             return isUpdateOrDelete;
         }
@@ -62,30 +71,29 @@ namespace FileDB.Brokers.Storages
             return users;
         }
 
-        public bool UpdateUser(User user)
+        public User UpdateUser(User user)
         {
             string userInfo = File.ReadAllText(FilePath);
             List<User> users = JsonConvert.DeserializeObject<List<User>>(userInfo);
 
-            foreach (var userItem in users)
+            User userExsist = users.FirstOrDefault(u => u.Id == user.Id);
+
+            if (userExsist is not null)
             {
-                if (userItem.Id == user.Id)
-                {
-                    isUpdateOrDelete = true;
-                    userItem.Name = user.Name;
-                }
+                userExsist.Name = user.Name;
+                string jsonConvertUsersInfo = JsonConvert.SerializeObject(users);
+                File.WriteAllText(FilePath, $"{jsonConvertUsersInfo}");
+
+                return user;
             }
 
-            string jsonConvertUsersInfo = JsonConvert.SerializeObject(users);
-            File.WriteAllText(FilePath, $"[{jsonConvertUsersInfo}]");
-
-            return isUpdateOrDelete;
+            return new User();
         }
         private void EnsureFileExists()
         {
             if (File.Exists(FilePath) is false)
             {
-                File.Create(FilePath).Close();
+                File.WriteAllText(FilePath,"[]");
             }
         }
     }

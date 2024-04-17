@@ -26,14 +26,14 @@ namespace FileDB.Services.UserService
                 : ValidateAndAddUser(user);
         }
 
-        public bool Delete(int id)
+        public bool DeleteUser(int id)
         {
             return id is 0
                 ? DeleteAndLogInvalidId()
                 : ValidateAndDeleteUser(id);
         }
 
-        public void ShowUsers()
+        public List<User> ReadAllUsers()
         {
             List<User> users = this.storageBroker.ReadAllUsers();
 
@@ -43,23 +43,24 @@ namespace FileDB.Services.UserService
             }
 
             this.loggingBroker.LogInformation($"=== End of users ===");
+            return users;
         }
 
 
-        public bool Update(User user)
+        public User UpdateUser(User user)
         {
             return user is null
                 ? UpdateAndLogInvalidUser()
                 : ValidateAndUpdateUser(user);
         }
 
-        private bool ValidateAndUpdateUser(User user)
+        private User ValidateAndUpdateUser(User user)
         {
             if (user.Id is 0
                 || String.IsNullOrWhiteSpace(user.Name))
             {
                 this.loggingBroker.LogError("User details missing.");
-                return false;
+                return new User();
             }
             else
             {
@@ -68,10 +69,10 @@ namespace FileDB.Services.UserService
             }
         }
 
-        private bool UpdateAndLogInvalidUser()
+        private User UpdateAndLogInvalidUser()
         {
             this.loggingBroker.LogError("User is invalid.");
-            return false;
+            return new User();
         }
 
         private User ValidateAndAddUser(User user)

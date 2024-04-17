@@ -7,7 +7,7 @@ using FileDB.Models.Users;
 
 namespace FileDB.Services.Identities
 {
-    internal class IdentityService
+    internal class IdentityService: IIdentityService
     {
         private static IdentityService instance;
         private readonly IStorageBroker storagesBroker;
