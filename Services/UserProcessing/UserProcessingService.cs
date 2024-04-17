@@ -20,32 +20,19 @@ namespace FileDB.Services.UserProcessing
             this.identityService = identityService;
         }
 
-        public void CreateNewUser(string name)
+        public User CreateUser(User user)
         {
-            User user = new User();
             user.Id = this.identityService.GetNewId();
-            user.Name = name;
-            this.userService.AddUser(user);
+            return this.userService.AddUser(user);
         }
 
-        public void DisplayUsers()
-        {
-            this.userService.ShowUsers();
-        }
+        public List<User> GetAllUser()=>
+            this.userService.ReadAllUsers();
 
-        public void UpdateUser(int id, string name)
-        {
-            User user = new User()
-            {
-                Id = id,
-                Name = name
-            };
-            this.userService.Update(user);
-        }
+        public User ModifyUser(User user)=>
+            this.userService.UpdateUser(user);
 
-        public void DeleteUser(int id)
-        {
-            this.userService.Delete(id);
-        }
+        public bool RemoveUser(int id)=>
+            this.userService.DeleteUser(id);
     }
 }

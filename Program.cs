@@ -4,6 +4,7 @@
 
 using FileDB.Brokers.Loggings;
 using FileDB.Brokers.Storages;
+using FileDB.Models.Users;
 using FileDB.Services.Identities;
 using FileDB.Services.UserProcessing;
 using FileDB.Services.UserService;
@@ -34,13 +35,13 @@ internal class Program
 
             UserProcessingService userProcessingService = new UserProcessingService(userService, identitiyService);
             PrintMenuForUser(userProcessingService);
-        }
-
-
+        }   
     }
     static void PrintMenuForUser(UserProcessingService userProcessing)
     {
+        User user = new User();
         string userChoice;
+
         do
         {
             PrintMenu();
@@ -51,38 +52,35 @@ internal class Program
                 case "1":
                     Console.Clear();
                     Console.Write("Enter you name:");
-                    string userName = Console.ReadLine();
-                    userProcessing.CreateNewUser(userName);
+                    user.Name = Console.ReadLine();
+                    userProcessing.CreateUser(user);
                     break;
 
                 case "2":
                     {
                         Console.Clear();
-                        userProcessing.DisplayUsers();
+                        userProcessing.GetAllUser();
                     }
                     break;
 
                 case "3":
                     {
                         Console.Clear();
-                        Console.WriteLine("Enter an id which you want to delete");
                         Console.Write("Enter id:");
-                        string deleteWithIdStr = Console.ReadLine();
-                        int deleteWithId = Convert.ToInt32(deleteWithIdStr);
-                        userProcessing.DeleteUser(deleteWithId);
+                        string removeUserId = Console.ReadLine();
+                        int removeUserIdToInt32 = Convert.ToInt32(removeUserId);
+                        userProcessing.RemoveUser(removeUserIdToInt32);
                     }
                     break;
 
                 case "4":
                     {
                         Console.Clear();
-                        Console.WriteLine("Enter an id which you want  to edit");
-                        Console.Write("Enter an id:");
-                        string idStr = Console.ReadLine();
-                        int id = Convert.ToInt32(idStr);
+                        Console.Write("Enter id:");
+                        user.Id = Convert.ToInt32(Console.ReadLine());
                         Console.Write("Enter name:");
-                        string name = Console.ReadLine();
-                        userProcessing.UpdateUser(id, name);
+                        user.Name = Console.ReadLine();
+                        userProcessing.ModifyUser(user);
                     }
                     break;
 

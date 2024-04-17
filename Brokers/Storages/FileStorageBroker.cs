@@ -27,25 +27,32 @@ namespace FileDB.Brokers.Storages
             return user;
         }
 
-        public bool UpdateUser(User user)
+        public User UpdateUser(User user)
         {
-            List<User> users = ReadAllUsers();
+            List<User> users = this.ReadAllUsers();
+
             for (int i = 0; i < users.Count; i++)
             {
                 if (users[i].Id == user.Id)
                 {
-                    users[i].Name = user.Name;
+                    users[i] = user;
                     isUpdateOrDelete = true;
-                    return isUpdateOrDelete;
                 }
             }
-            File.WriteAllText(FilePath, string.Empty);
-            foreach (User user1 in users)
+
+            if (isUpdateOrDelete is true)
             {
-                AddUser(user1);
+                File.WriteAllText(FilePath, string.Empty);
+
+                foreach (var userInfo in users)
+                {
+                    this.AddUser(userInfo);
+                }
+
+                return user;
             }
 
-            return isUpdateOrDelete;
+            return new User();
         }
         public List<User> ReadAllUsers()
         {
@@ -68,18 +75,24 @@ namespace FileDB.Brokers.Storages
 
         public bool DeleteUser(int id)
         {
-            List<User> users = ReadAllUsers();
+            string[] users = File.ReadAllLines(FilePath);
             File.WriteAllText(FilePath, string.Empty);
 
-            for (int i = 0; i < users.Count; i++)
+            for (int itaration = 0; itaration < users.Length; itaration++)
             {
-                if (users[i].Id != id)
+                string userLine = users[itaration];
+                string[] userProperties = userLine.Split("*");
+
+                if (userProperties[0].Contains(id.ToString()) is true)
                 {
-                    AddUser(users[i]);
                     isUpdateOrDelete = true;
-                    return isUpdateOrDelete;
+                }
+                else
+                {
+                    File.AppendAllText(FilePath, userLine);
                 }
             }
+
             return isUpdateOrDelete;
         }
 
