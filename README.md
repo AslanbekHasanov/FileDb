@@ -3,7 +3,7 @@ In this project, we used the Design Pattern principles to read and write informa
 <br>
 
 
-## **Principles used in the project**
+## **Principles and external technologies used in the project.**
 
 #### 1. [Using a JSON file as a database.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DB/JsonFile.md) 
 #### 2. [Using a TXT file as a database.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DB/TxtFile.md) 
