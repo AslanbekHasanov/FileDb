@@ -4,7 +4,7 @@ In this project, we used the TXT file as a database
 view when performing operations on the data (ie CRUD operations).
 
 ## **Menu**
-![Menu Second](../Images/menu-second.png)
+<img src="../Images/menu-second.png" width="600" height="400">
 
 ### **1. Create User**
 ### **2. Display User**
