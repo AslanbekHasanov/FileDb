@@ -5,6 +5,7 @@
 using FileDB.Brokers.Loggings;
 using FileDB.Brokers.Storages;
 using FileDB.Models.Users;
+using FileDB.Services.Files;
 using FileDB.Services.Identities;
 using FileDB.Services.UserProcessing;
 using FileDB.Services.UserService;
@@ -13,28 +14,18 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        SelectDb();
+        SelectDbMenu();
         Console.Write("Enter command: ");
         int command = Convert.ToInt32(Console.ReadLine());
         if (command == 1)
         {
-            ILoggingBroker loggingBroker = new LoggingBroker();
-            IStorageBroker storageBroker = new JSONStorageBroker();
-            IUserService userService = new UserService(storageBroker);
-            IdentityService identitiyService = IdentityService.GetIdentityService(storageBroker);
-
-            UserProcessingService userProcessingService = new UserProcessingService(userService, identitiyService);
-            PrintMenuForUser(userProcessingService);
+            IStorageBroker jsonBroker = new JSONStorageBroker();
+            PrintMenuForUser(SelectJsonOrTxtFile(jsonBroker));
         }
         else
         {
-            ILoggingBroker loggingBroker = new LoggingBroker();
-            IStorageBroker storageBroker = new FileStorageBroker();
-            IUserService userService = new UserService(storageBroker);
-            IdentityService identitiyService = IdentityService.GetIdentityService(storageBroker);
-
-            UserProcessingService userProcessingService = new UserProcessingService(userService, identitiyService);
-            PrintMenuForUser(userProcessingService);
+            IStorageBroker txtBroker = new FileStorageBroker();
+            PrintMenuForUser(SelectJsonOrTxtFile(txtBroker));
         }   
     }
     static void PrintMenuForUser(UserProcessingService userProcessing)
@@ -83,6 +74,18 @@ internal class Program
                         userProcessing.ModifyUser(user);
                     }
                     break;
+                case "5":
+                    {
+                        Console.Clear();
+                        string filePath = "../../../Assets";
+
+                        DirectoryInfo directory = new DirectoryInfo(filePath);
+
+                        IFileService fileSizeService = new FileService();
+                        var fileSize = fileSizeService.GetFileSizeInProject(directory);
+
+                    }
+                    break;
 
                 case "0": break;
 
@@ -101,12 +104,23 @@ internal class Program
         Console.WriteLine("2.Display User");
         Console.WriteLine("3.Delete User by id");
         Console.WriteLine("4.Update User by id");
+        Console.WriteLine("5.File size");
         Console.WriteLine("0.Exit");
     }
-    static void SelectDb()
+    static void SelectDbMenu()
     {
         Console.WriteLine("Welcome to, my project!");
         Console.WriteLine("1.JSON");
         Console.WriteLine("2.Txt");
+    }
+    static UserProcessingService SelectJsonOrTxtFile(IStorageBroker broker) 
+    {
+        IStorageBroker storageBroker = broker;
+        ILoggingBroker loggingBroker = new LoggingBroker();
+        IUserService userService = new UserService(storageBroker);
+        IdentityService identitiyService = IdentityService.GetIdentityService(storageBroker);
+        UserProcessingService userProcessingService = new UserProcessingService(userService, identitiyService);
+        
+        return userProcessingService;
     }
 }

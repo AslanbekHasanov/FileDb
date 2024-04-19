@@ -85,6 +85,7 @@ namespace FileDB.Services.UserService
             }
             else
             {
+                this.loggingBroker.LogInformation("User created.");
                 return this.storageBroker.AddUser(user);
             }
         }
