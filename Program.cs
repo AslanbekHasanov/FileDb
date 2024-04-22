@@ -22,7 +22,7 @@ internal class Program
             IStorageBroker jsonBroker = new JSONStorageBroker();
             PrintMenuForUser(SelectJsonOrTxtFile(jsonBroker));
         }
-        else
+        else if(command == 2)
         {
             IStorageBroker txtBroker = new FileStorageBroker();
             PrintMenuForUser(SelectJsonOrTxtFile(txtBroker));
@@ -30,7 +30,6 @@ internal class Program
     }
     static void PrintMenuForUser(UserProcessingService userProcessing)
     {
-        User user = new User();
         string userChoice;
 
         do
@@ -43,7 +42,12 @@ internal class Program
                 case "1":
                     Console.Clear();
                     Console.Write("Enter you name:");
-                    user.Name = Console.ReadLine();
+                    string userName = Console.ReadLine();
+                    User user = new User()
+                    {
+                        Name = userName,
+                    };
+
                     userProcessing.CreateUser(user);
                     break;
 
@@ -68,21 +72,27 @@ internal class Program
                     {
                         Console.Clear();
                         Console.Write("Enter id:");
-                        user.Id = Convert.ToInt32(Console.ReadLine());
+                        int userId = Convert.ToInt32(Console.ReadLine());
                         Console.Write("Enter name:");
-                        user.Name = Console.ReadLine();
-                        userProcessing.ModifyUser(user);
+                        string userNameByUpdate = Console.ReadLine();
+                        User userUpdate = new User()
+                        {
+                            Id = userId,
+                            Name = userNameByUpdate,
+                        };
+                        userProcessing.ModifyUser(userUpdate);
                     }
                     break;
                 case "5":
                     {
                         Console.Clear();
-                        string filePath = "../../../Assets";
+                        string filePath = "../../../Assets/";
 
                         DirectoryInfo directory = new DirectoryInfo(filePath);
 
                         IFileService fileSizeService = new FileService();
                         var fileSize = fileSizeService.GetFileSizeInProject(directory);
+
 
                     }
                     break;

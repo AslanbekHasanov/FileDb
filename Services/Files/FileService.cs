@@ -33,7 +33,7 @@ namespace FileDB.Services.Files
                     size += GetFileSizeInProject(folder);
                 }
 
-                this.broker.LogInformation($"File size: {size} bytes");
+                this.broker.LogInformation($"{fileInformation.Last().Extension.Substring(1)} file size: {size} bytes");
             }
             catch (Exception ex)
             {

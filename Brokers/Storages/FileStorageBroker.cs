@@ -89,7 +89,7 @@ namespace FileDB.Brokers.Storages
                 }
                 else
                 {
-                    File.AppendAllText(FilePath, userLine);
+                    File.AppendAllText(FilePath, userLine + "\n");
                 }
             }
 
