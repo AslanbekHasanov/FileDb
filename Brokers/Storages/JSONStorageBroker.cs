@@ -4,7 +4,7 @@
 
 using FileDB.Brokers.Storages;
 using FileDB.Models.Users;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace FileDB.Brokers.Storages
 {
@@ -22,12 +22,13 @@ namespace FileDB.Brokers.Storages
         public User AddUser(User user)
         {
             string userInfo = File.ReadAllText(FilePath);
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(userInfo);
+            List<User> users = JsonSerializer.Deserialize<List<User>>(userInfo);
             User userExsist = users.FirstOrDefault(u => u.Id == user.Id);
 
             if (userExsist is null)
             {
-                string jsonConvertUserInfo = JsonConvert.SerializeObject(users);
+                users.Add(user);
+                string jsonConvertUserInfo = JsonSerializer.Serialize(users);
                 File.WriteAllText(FilePath, $"{jsonConvertUserInfo}");
                 return user;
             }
@@ -38,7 +39,7 @@ namespace FileDB.Brokers.Storages
         public bool DeleteUser(int id)
         {
             string userInfo = File.ReadAllText(FilePath);
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(userInfo);
+            List<User> users = JsonSerializer.Deserialize<List<User>>(userInfo);
             List<User> userDeletedNextInfo = new List<User>();
 
             foreach (var user in users)
@@ -55,7 +56,7 @@ namespace FileDB.Brokers.Storages
 
             if (isUpdateOrDelete is true)
             {
-                string jsonConvertUsersInfo = JsonConvert.SerializeObject(userDeletedNextInfo);
+                string jsonConvertUsersInfo = JsonSerializer.Serialize(userDeletedNextInfo);
                 File.WriteAllText(FilePath, $"{jsonConvertUsersInfo}");
                 return isUpdateOrDelete;
             }
@@ -66,7 +67,7 @@ namespace FileDB.Brokers.Storages
         public List<User> ReadAllUsers()
         {
             string userInfo = File.ReadAllText(FilePath);
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(userInfo);
+            List<User> users = JsonSerializer.Deserialize<List<User>>(userInfo);
 
             return users;
         }
@@ -74,14 +75,14 @@ namespace FileDB.Brokers.Storages
         public User UpdateUser(User user)
         {
             string userInfo = File.ReadAllText(FilePath);
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(userInfo);
+            List<User> users = JsonSerializer.Deserialize<List<User>>(userInfo);
 
             User userExsist = users.FirstOrDefault(u => u.Id == user.Id);
 
             if (userExsist is not null)
             {
                 userExsist.Name = user.Name;
-                string jsonConvertUsersInfo = JsonConvert.SerializeObject(users);
+                string jsonConvertUsersInfo = JsonSerializer.Serialize(users);
                 File.WriteAllText(FilePath, $"{jsonConvertUsersInfo}");
 
                 return user;
