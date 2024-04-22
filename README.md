@@ -10,7 +10,7 @@ in my program. You can learn how I used these principles in my ``FileDb``project
 The **FileDB** project allows us to work with ***TXT*** or ***JSON*** files.
 <br>
 
-<img src="Dacumnets/Images/menu-first.png">
+<img src="/Dacumnets/Images/menu-first.png">
 
 <br>
 
