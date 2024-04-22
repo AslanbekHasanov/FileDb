@@ -15,11 +15,11 @@ The **FileDB** project allows us to work with ***TXT*** or ***JSON*** files.
 
 ## **Principles and external technologies used in the project.**
 
-#### 1. [Using a JSON file as a database.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DB/JsonFile.md) 
-#### 2. [Using a TXT file as a database.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DB/TxtFile.md) 
-#### 3. [Using the Dependency Injection in the project.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DesignPatterns/DependencyInjection.md) 
-#### 4. [Using the Dependency Inversion in the project.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DesignPatterns/DependencyInversion.md) 
-#### 4. [Using the Singleton Patterns in the project.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DesignPatterns/SingletonPatterns.md) 
+##### 1. [Using a JSON file as a database.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DB/JsonFile.md) 
+##### 2. [Using a TXT file as a database.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DB/TxtFile.md) 
+##### 3. [Using the Dependency Injection in the project.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DesignPatterns/DependencyInjection.md) 
+##### 4. [Using the Dependency Inversion in the project.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DesignPatterns/DependencyInversion.md) 
+##### 4. [Using the Singleton Patterns in the project.](https://github.com/AslanbekHasanov/FileDb/blob/main/Dacuments/DesignPatterns/SingletonPatterns.md) 
 <br>
 
 
