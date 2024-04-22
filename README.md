@@ -6,11 +6,11 @@ In this project, we used the Design Pattern principles to read and write informa
 ``SOLID`` principles and ``Dependency Injection, Dependency Inversion`` and ``Singleton Patterns`` are featured prominently
 in my program. You can learn how I used these principles in my ``FileDb``project in the sections below.
 
-## FileDB loyhasi qanday ishlaydi ?
-**FileDB** loyhasi bizga  ***TXT*** yoki ***JSON*** filelar bilan ishlash imkonini beradi.
+## How the FileDB project works?
+The **FileDB** project allows us to work with ***TXT*** or ***JSON*** files.
 <br>
 
-<img src="../Images/menu-first.png" width="600" height="400">
+<img src="Dacumnets/Images/menu-first.png" width="600" height="400">
 <br>
 
 ## **Principles and external technologies used in the project.**
