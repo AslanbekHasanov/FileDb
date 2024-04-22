@@ -10,7 +10,7 @@ in my program. You can learn how I used these principles in my ``FileDb``project
 The **FileDB** project allows us to work with ***TXT*** or ***JSON*** files.
 <br>
 
-![First Menu](/Dacuments/Images/menu-first.png)
+<img src="/Dacuments/Images/menu-first.png" width="600" height="400">
 <br>
 
 ## **Principles and external technologies used in the project.**
